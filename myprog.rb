@@ -32,3 +32,25 @@ def walk(direction)
   end
 end
 walk(:north)
+
+#Variables
+person1 = "Tim"
+person2 = person1
+person1[0] = "J" # In Ruby when you assign an object to a variable you will assign
+# the reference to the object so if you change the first object you will change the second object too 
+puts person1
+puts person2
+## to avoid that
+person3 = "Tim"
+person4 = person3.dup # create a new string with identical contents
+person3[0] = "J"
+puts person3
+puts person4
+
+person5 = "Tim"
+person6 = person5
+person5.freeze # prevent any change. Will raise RuntimeError exception if someone try to modify 
+person6[0] = "J"
+puts person5
+puts person6
+#Numbers and symbols are frozen
