@@ -54,3 +54,16 @@ person6[0] = "J"
 puts person5
 puts person6
 #Numbers and symbols are frozen
+
+
+# You can reopen a class if you declare a class already existing (it's called monkey-patching) but you need to use it carefully because you can change the behavior of a class and it's hard to predict
+class Demo
+  attr_accessor :title
+#some code
+end
+#some code
+class Demo
+  def uppercase_title
+    title.upcase 
+  end
+end
