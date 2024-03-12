@@ -43,3 +43,28 @@ puts square # => some shape
 # you can replace |value| with _1 and so on for the other arguments, it will take the positional argument to the block
 # but we recommend to use this only for one arguments blocks
 [1,2].each { puts _1} # => 1 2
+
+
+# you can use block for transactions
+class File
+    def self.open_and_process(*args)
+        f=File.open(*args)
+        yield f
+        f.close
+    end
+end
+File.open_and_process("testfile", "r") do |file|
+    while line = file.gets
+        puts line
+    end
+end
+# you can check if a block is given to a method
+class File
+    def self.my_open(*args)
+        file = File.new(*args)
+        return file unless block_given? # return the file if no block is given
+        result = yield file
+        file.close
+        result
+    end
+end
