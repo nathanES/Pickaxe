@@ -58,6 +58,8 @@ File.open_and_process("testfile", "r") do |file|
         puts line
     end
 end
+#it's usefull because you want to make sure that the file is closed after the block is executed
+
 # you can check if a block is given to a method
 class File
     def self.my_open(*args)
