@@ -70,3 +70,52 @@ class File
         result
     end
 end
+
+# block as object
+
+class ProcExample
+    def pass_in_block(&action) # & is used to convert the block to a proc
+        @stored_proc = action
+    end
+    def use_proc(parameter)
+        @stored_proc.call(parameter
+    end
+end
+eg = ProcExample.new
+eg.pass_in_block { |param| puts "The parameter is #{param}"}
+eg.use_proc(99) # => The parameter is 99
+
+#you can use something like this 
+def create_block_object(&block)
+    block # return the block as a proc
+end
+bo = create_block_object { |param| puts "You called me with #{param}"}
+bo.call(99) # => You called me with 99
+bo.call("cat") # => You called me with cat
+
+# the same thing can be done with "stabby lambda" syntax
+bo1 = ->(param) { puts "You called me with #{param}"}
+bo1.call(99) # => You called me with 99
+bo1.call("cat") # => You called me with cat
+
+# you can also use the lambda syntax
+bo2 = lambda { |param| puts "You called me with #{param}"}
+bo2.call(99) # => You called me with 99
+bo2.call("cat") # => You called me with cat
+
+# you can also use the Kernel method called proc
+bo3 = proc { |param| puts "You called me with #{param}"}
+bo3.call(99) # => You called me with 99
+bo3.call("cat") # => You called me with cat
+
+# you can also use the Proc.new method => but it's not recommended !
+bo4 = Proc.new { |param| puts "You called me with #{param}"}
+bo4.call(99) # => You called me with 99
+bo4.call("cat") # => You called me with cat
+
+# slight difference between lambda and proc
+# lambda : return error if called with the wrong number of arguments
+# proc : truncate extra arguments or assign nil to missing arguments
+# proc : return inside proc will return from the method that called the proc
+# lambda : return inside lambda will not
+# TODO to test
