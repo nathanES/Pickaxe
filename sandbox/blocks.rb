@@ -119,3 +119,23 @@ bo4.call("cat") # => You called me with cat
 # proc : return inside proc will return from the method that called the proc
 # lambda : return inside lambda will not
 # TODO to test
+
+
+# blocks are closures
+def n_times(thing)
+    ->(n) { thing * n } # the block is a closure that captures the variable thing
+end
+p1 = n_times(23)
+puts p1.call(3) # => 69
+puts p1.call(4) # => 92
+p2 = n_times("Hello ")
+puts p2.call(3) # => Hello Hello Hello
+
+def power_proc_generator
+    value = 1
+    -> { value += value } # the block is a closure that captures the variable value
+end
+power_proc = power_proc_generator
+puts power_proc.call # => 2
+puts power_proc.call # => 4
+puts power_proc.call # => 8
